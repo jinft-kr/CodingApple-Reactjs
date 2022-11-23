@@ -1,7 +1,7 @@
 import {useParams} from "react-router-dom";
 import styled from 'styled-components';
 import {useEffect, useState} from "react";
-
+import { Nav } from 'react-bootstrap'
 let Box = styled.div`
   padding : 20px;
   color : grey
@@ -21,6 +21,8 @@ function Detail(props) {
     let [count, setCount] = useState(0)
     let [alert2, setAlert2] = useState(true)
     let [num, setNum] = useState('')
+    let [tap, setTap] = useState(0)
+
 
     useEffect(()=>{
         if (isNaN(num) == true){
@@ -69,9 +71,37 @@ function Detail(props) {
                     <button className="btn btn-danger">주문하기</button>
                 </div>
                 <input onChange={((e)=>{ setNum(e.target.value) })} />
+
+                <Nav variant="tabs"  defaultActiveKey="link1">
+                    <Nav.Item>
+                        <Nav.Link onClick={()=> {setTap(0)}} eventKey="link0">버튼0</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link onClick={()=> {setTap(1)}} eventKey="link1">버튼1</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link onClick={()=> {setTap(2)}} eventKey="link2">버튼2</Nav.Link>
+                    </Nav.Item>
+                </Nav>
+                <TabContent tap={tap}/>
             </div>
         </div>
     )
+    function TabContent({tap}){
+        if ( tap == 0 ){
+            return <div>내용0</div>
+        }
+        if ( tap == 1 ){
+            return <div>내용1</div>
+        }
+        if ( tap == 2 ){
+            return <div>내용2</div>
+        }
+    }
+// // 이 방식도 가능
+//     function TabContent({tap}){
+//         return [ <div>내용0</div>, <div>내용1</div>, <div>내용2</div> ][tap]
+//     }
 }
 
 export default Detail
