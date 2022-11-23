@@ -4,10 +4,11 @@ import data from './data' // 변수 여러개 import : import {a, b} from '경�
 import {useState} from "react";
 import { Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
 import Detail from './routes/Detail'
+import axios from 'axios'
 
 function App() {
 
-  let [shoes] = useState(data)
+  let [shoes, setShoes] = useState(data)
   let navigate = useNavigate();
 
   return (
@@ -37,6 +38,21 @@ function App() {
                             }
                         </div>
                     </div>
+                    <button onClick={()=>{
+                            axios.get('https://codingapple1.github.io/shop/data2.json')
+                                .then((result)=>{
+                                    console.log(result.data)
+                                    let copy = [...shoes, ...result.data];
+                                    setShoes(copy);
+
+                                }).catch(()=>{
+                                    console.log('실패')
+                            })
+
+                        // Promise.all([axios.get('/url1'), axios.get('url2')]).then().catch() //2가지 이상의 요청을 보내고 싶을 때
+                        // fetch('URL').then(결과 => 결과.json()).then((결과) => { console.log(결과) } ) // fetch 사용하고 싶을 때
+                        }
+                    }>버튼</button>
                 </>
             }/>
             <Route path="/detail/:id" element={<Detail shoes={shoes}/>}/>
