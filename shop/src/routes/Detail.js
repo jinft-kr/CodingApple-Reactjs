@@ -1,7 +1,8 @@
 import {useParams} from "react-router-dom";
 import styled from 'styled-components';
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import { Nav } from 'react-bootstrap'
+import { Context1 } from './../App'
 let Box = styled.div`
   padding : 20px;
   color : grey
@@ -13,6 +14,8 @@ let YellowBtn = styled.button`
 `;
 
 function Detail(props) {
+
+    // let { last } = useContext(Context1);
 
     let {id} = useParams();
     let product = props.shoes.find(function (x) { // props.shoes.find((x) => x.id == id ) 랑 똑같음
@@ -83,7 +86,7 @@ function Detail(props) {
                         <Nav.Link onClick={()=> {setTap(2)}} eventKey="link2">버튼2</Nav.Link>
                     </Nav.Item>
                 </Nav>
-                <TabContent tap={tap}/>
+                <TabContent shoes={props.shoes} tap={tap}/>
             </div>
         </div>
     )
@@ -99,9 +102,10 @@ function Detail(props) {
     //     }
     // }
 // 이 방식도 가능
-    function TabContent({tap}){
+    function TabContent({tap, shoes}){
 
         let [fade, setFade] = useState('')
+        // let { last } = useContext(Context1);
 
         useEffect(()=>{
             setTimeout(()=>{ setFade('end') }, 100)
@@ -113,7 +117,7 @@ function Detail(props) {
 
         return (
             <div className={'start' + fade}>
-                { [ <div>내용0</div>, <div>내용1</div>, <div>내용2</div> ][tap] }
+                { [ <div>{shoes[0].title}</div>, <div>내용1</div>, <div>내용2</div> ][tap] }
             </div>
         )
     }

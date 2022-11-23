@@ -1,14 +1,19 @@
 import './App.css';
 import {Button, Navbar, Container, Nav} from 'react-bootstrap'
 import data from './data' // 변수 여러개 import : import {a, b} from '경로'
-import {useState} from "react";
+import {createContext, useState} from "react";
 import { Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
 import Detail from './routes/Detail'
 import axios from 'axios'
+import Cart from './routes/Cart'
+
+let Context1 = createContext() // state 보관함
 
 function App() {
 
   let [shoes, setShoes] = useState(data)
+  // let [last, setLast] = useState([10,11,12])
+
   let navigate = useNavigate();
 
   return (
@@ -55,7 +60,9 @@ function App() {
                     }>버튼</button>
                 </>
             }/>
-            <Route path="/detail/:id" element={<Detail shoes={shoes}/>}/>
+            <Route path="/detail/:id" element={  <Detail shoes={shoes}/>
+            }/>
+            <Route path="/cart" element={  <Cart></Cart>  }/>
             <Route path="/about" element={<About/>}>
                 <Route path="member" element={<div>멤버임</div>}></Route>
                 <Route path="location" element={<About/>}></Route>
