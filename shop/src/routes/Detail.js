@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import {useContext, useEffect, useState} from "react";
 import { Nav } from 'react-bootstrap'
 import { Context1 } from './../App'
+import {useDispatch} from "react-redux";
+import {addItem} from "../store";
 let Box = styled.div`
   padding : 20px;
   color : grey
@@ -25,7 +27,7 @@ function Detail(props) {
     let [alert2, setAlert2] = useState(true)
     let [num, setNum] = useState('')
     let [tap, setTap] = useState(0)
-
+    let dispatch = useDispatch()
 
     useEffect(()=>{
         if (isNaN(num) == true){
@@ -71,7 +73,9 @@ function Detail(props) {
                     <h4 className="pt-5">{product.title}</h4>
                     <p>{product.content}</p>
                     <p>{product.price}</p>
-                    <button className="btn btn-danger">주문하기</button>
+                    <button className="btn btn-danger" onClick={() => {
+                        dispatch(addItem({id:1, name: 'Red test', count:1}))
+                    }}>주문하기</button>
                 </div>
                 <input onChange={((e)=>{ setNum(e.target.value) })} />
 
