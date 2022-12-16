@@ -11,6 +11,11 @@ let Context1 = createContext() // state 보관함
 
 function App() {
 
+  let obj = {name: 'kim'}
+  localStorage.setItem('data', JSON.stringify(obj))
+  let output = localStorage.getItem('data')
+  console.log("localStorage : " + JSON.parse(output).name)
+
   let [shoes, setShoes] = useState(data)
   // let [last, setLast] = useState([10,11,12])
 
