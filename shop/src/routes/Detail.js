@@ -37,6 +37,7 @@ function Detail(props) {
         output = Array.from(output)
         localStorage.setItem('watched', JSON.stringify(output))
     })
+
     useEffect(()=>{
         if (isNaN(num) == true){
             alert('그러지마세요')
