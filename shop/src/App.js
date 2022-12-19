@@ -1,25 +1,34 @@
 import './App.css';
 import {Button, Navbar, Container, Nav} from 'react-bootstrap'
 import data from './data' // 변수 여러개 import : import {a, b} from '경로'
-import {createContext, useState} from "react";
+import {createContext, useEffect, useState} from "react";
 import { Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
 import Detail from './routes/Detail'
 import axios from 'axios'
 import Cart from './routes/Cart'
 
-let Context1 = createContext() // state 보관함
+// let Context1 = createContext() // state 보관함
 
 function App() {
 
+  useEffect(()=>{
+    console.log()
+    localStorage.setItem('watched', JSON.stringify([]))
+  })
+
   let obj = {name: 'kim'}
   localStorage.setItem('data', JSON.stringify(obj))
+
   let output = localStorage.getItem('data')
   console.log("localStorage : " + JSON.parse(output).name)
 
   let [shoes, setShoes] = useState(data)
+  let navigate = useNavigate()
   // let [last, setLast] = useState([10,11,12])
 
-  let navigate = useNavigate();
+  useEffect(()=>{
+      localStorage.setItem('watched', JSON.stringify([]))
+  }, [])
 
   return (
     <div className="App">

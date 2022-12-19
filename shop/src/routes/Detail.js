@@ -30,6 +30,14 @@ function Detail(props) {
     let dispatch = useDispatch()
 
     useEffect(()=>{
+        console.log(product.id)
+        let output = localStorage.getItem('watched')
+        output = JSON.parse(output)
+        output.push(product.id)
+        output = Array.from(output)
+        localStorage.setItem('watched', JSON.stringify(output))
+    })
+    useEffect(()=>{
         if (isNaN(num) == true){
             alert('그러지마세요')
         }
